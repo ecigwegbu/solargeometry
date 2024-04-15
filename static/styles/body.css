@@ -1,0 +1,189 @@
+html {
+  height: 100%;
+}
+
+body {
+  max-width: 1536px;
+  margin-left: 5px;
+  padding: 0;
+}
+
+.calculatorBody {
+  /* max-width: 1536px; */
+  /*width: auto;*/
+
+  /*height: 100%;*/
+  font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  background: rgb(171, 219, 243) url(../images/solar-background.jpg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  /*background-size: 1230px 1324px;*/
+  background-size: cover;
+
+  justify-content: flex-start;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  flex-flow: nowrap;
+  align-items: stretch;
+  justify-content: center;
+  /*justify-items: center;*/
+  /*border: 1px red solid;*/
+  text-shadow: 0.05em 0.05em grey;
+}
+
+.main input {
+  font-size: 20px;
+  border: none;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.main label {
+  font-size: 24px;
+  /*font-weight: lighter; */
+}
+
+.calculated input {
+  background-color: darkgrey;
+  width: 150px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#timeZoneInfo {
+  background-color: transparent;
+}
+
+.login:hover,
+.calculate:hover {
+  opacity: 70%;
+}
+
+.login {
+  font-size: 24px;
+  background-color: rgb(52, 114, 172);
+  color: rgba(49, 49, 49, 0.555);
+  height: 48px;
+  width: fit-content;
+  border: none;
+  border-radius: 4px;
+  margin: 0px 20px;
+  padding: 0px 40px;
+}
+
+.calculate {
+  font-size: 24px;
+  background-color: rgb(52, 114, 172);
+  color: white;
+  height: 48px;
+  width: fit-content;
+  border: none;
+  border-radius: 4px;
+  margin: 0px 20px;
+  padding: 0px 40px;
+}
+.userInput {
+  border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  align-items: self-end;
+  margin: 20px;
+  border-radius: 12px;
+  padding: 0px 20px 20px;
+  min-width: 44%;
+}
+.userInput label {
+  font-size: 24px;
+}
+
+.userInput input {
+  width: 12em;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.aboutSGF p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+.landingPage h1,
+.landingPage h2,
+.landingPage h3,
+.landingPage h4,
+.landingPage h5,
+.landingPage > p {
+  align-self: center;
+}
+.landingPageButton:hover {
+  opacity: 70%;
+}
+
+.landingPage .features div:hover {
+  border: solid 3px blue;
+}
+
+.navbar .navContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  margin: 5px 0 20px;
+}
+.navbar .menu {
+  font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: bolder;
+  vertical-align: baseline;
+  height: 1.5em;
+  border: solid 1px white;
+  background-color: rgb(211, 216, 224);
+  padding: 1em 0;
+}
+.navbar .menu:hover {
+  background-color: beige;
+}
+.welcomeMenu {
+  flex: 1 1 23%;
+  width: 17%;
+  text-align: center;
+}
+.calculateMenu {
+  flex: 1 0 23%;
+  width: 27%;
+  text-align: center;
+}
+.docsMenu {
+  flex: 1 2 23;
+  width: 20%;
+  text-align: center;
+}
+.goSolarMenu {
+  flex: 1 1 23%;
+  width: 20%;
+  text-align: center;
+}
+
+.footer {
+  font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+
+  height: 100px;
+  width: 100%;
+
+  border-top: 1px solid #cccccc;
+
+  justify-content: center;
+  align-items: center;
+
+  z-index: 2;
+  background-color: beige;
+}

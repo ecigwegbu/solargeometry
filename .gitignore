@@ -1,0 +1,12 @@
+node_modules
+__pycache__
+*.tmp*
+*.bak*
+.git
+.git.old
+*venv*
+.*.swp
+tzapi
+.env
+package-lock.json
+.vsode

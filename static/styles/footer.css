@@ -1,0 +1,18 @@
+.footer {
+  font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+
+  height: 100px;
+  width: 100%;
+
+  border-top: 1px solid #cccccc;
+
+  justify-content: center;
+  align-items: center;
+
+  z-index: 2;
+  background-color: beige;
+}

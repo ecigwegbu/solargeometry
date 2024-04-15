@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.5" />
+    <title>Solar Geometry Calculator</title>
+    <link rel="stylesheet" href="../static/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="../static/styles/footer.css" type="text/css" />
+    <link rel="stylesheet" href="../static/styles/body.css" type="text/css" />
+  </head>
+  <body {% block bodyClass %}{% endblock %}>
+    <header></header>
+
+    <nav class="navbar">
+      <div class="navContainer">
+        <a class="welcomeMenu menu" href="https://solargeometry.igwegbu.tech"
+          >Welcome</a
+        >
+        <a
+          class="calculateMenu menu"
+          href="https://solargeometry.igwegbu.tech/calculator.html?"
+          >Calculator</a
+        >
+        <a
+          class="docsMenu menu"
+          href="https://solargeometry.igwegbu.tech/docs.html?"
+          >Docs</a
+        >
+        <a
+          class="goSolarMenu menu"
+          href="https://solargeometry.igwegbu.tech/go-solar.html?"
+          >Go Solar</a
+        >
+      </div>
+    </nav>
+
+    {% block content %} {% endblock %}
+
+    <!-- 'Footer' section below -->
+    <div class="footer">
+      <small>&copy; 2023. MannedModule Inc. All Rights Reserved.</small>
+      <small
+        ><a href="#" title="The Small Prints">Terms and Conditions</a></small
+      >
+      <small
+        >#Do.Hard.Things&reg;&trade;@ALX-Cohort-9.
+        <a
+          href="mailto:admin@igwegbu.tech"
+          title="Get in touch with an agent now."
+          >Contact Us</a
+        ></small
+      >
+    </div>
+    <script src="../static/scripts/script.js" defer></script>
+  </body>
+</html>
