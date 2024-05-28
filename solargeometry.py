@@ -3,10 +3,20 @@ from datetime import datetime, date, time, timedelta
 import requests
 from math import fmod, sin, cos, asin, acos, tan, atan2, pi, degrees, radians, pow, sqrt
 from os import getenv
+from dotenv import load_dotenv
+import base64
 
+# Specify the path to the .env file
+dotenv_path = ".env"
 
-GOOGLE_API_KEY = getenv("GOOGLE_API_KEY")
-SECRET_KEY = getenv("SECRET_KEY")
+# Load the .env file
+load_dotenv(dotenv_path)
+
+GOOGLE_API_KEY_encoded = getenv("GOOGLE_API_KEY")
+SECRET_KEY_encoded = getenv("SECRET_KEY")
+
+GOOGLE_API_KEY = base64.b64decode(GOOGLE_API_KEY_encoded).decode()
+SECRET_KEY = base64.b64decode(SECRET_KEY_encoded).decode()
 
 app = Flask(__name__)
 app.secret_key = (SECRET_KEY)

@@ -1,0 +1,15 @@
+# Gunicorn instance to serve solargeometry app
+
+[Unit]
+Description=Gunicorn instance to serve solargeometry app
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/var/www/solargeometry
+EnvironmentFile=/var/www/solargeometry/.env
+ExecStart=/home/ubuntu/.local/bin/gunicorn --workers 2 --bind 127.0.0.1:5004 --log-file /tmp/solargeometry-error.log --access-logfile /tmp/solargeometry-access.log solargeometry:app
+
+[Install]
+WantedBy=multi-user.target
