@@ -74,11 +74,10 @@ pipeline {
                     ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << EOF
                     sudo docker pull ${DOCKER_IMAGE}
                     sudo docker rm -f \$(sudo docker ps -aq)
-                    sudo docker run -d -p 8000:8000 --env-file=${SOLARGEOMETRY_ENV_FILE} ${DOCKER_IMAGE}
-                    sudo docker run -d -p 8001:8000 --env-file=${SOLARGEOMETRY_ENV_FILE} ${DOCKER_IMAGE}
+                    sudo docker run -d -p 5004:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} ${DOCKER_IMAGE}
+                    # sudo docker run -d -p 5004:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} ${DOCKER_IMAGE}
                     # Add or update more instances as needed
 
-                    sudo systemctl restart haproxy
                     EOF
                     """
                 }
