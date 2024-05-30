@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "igwegbu/solargeometry:latest"
+        DOCKER_IMAGE = "docker.io/igwegbu/solargeometry:latest"
         DOCKER_CREDENTIALS_ID = "DOCKER_CREDENTIALS_ID"
         GITHUB_CREDENTIALS_ID = "GITHUB_CREDENTIALS_ID"
         EC2_SSH_CREDENTIALS_ID = "EC2_SSH_CREDENTIALS_ID"
@@ -26,7 +26,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def customImage = docker.build("${env.DOCKER_IMAGE}")
+                    docker.build(env.DOCKER_IMAGE)
                 }
             }
         }
@@ -75,6 +75,9 @@ pipeline {
                     sudo docker pull ${DOCKER_IMAGE}
                     sudo docker rm -f \$(sudo docker ps -aq)
                     sudo docker run -d -p 5005:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} ${DOCKER_IMAGE}
+                    # sudo docker run -d -p 5005:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} ${DOCKER_IMAGE}
+                    # Add or update more instances as needed
+
                     EOF
                     """
                 }
