@@ -8,6 +8,13 @@ pipeline {
     }
 
     stages {
+        stage('Prepare Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
+    stages {
         stage('Clone Repository') {
             steps {
                 sh 'git clone https://github.com/ecigwegbu/solargeometry.git'
