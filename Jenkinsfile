@@ -13,9 +13,7 @@ pipeline {
                 cleanWs()
             }
         }
-   }
 
-    stages {
         stage('Clone Repository') {
             steps {
                 sh 'git clone https://github.com/ecigwegbu/solargeometry.git'
