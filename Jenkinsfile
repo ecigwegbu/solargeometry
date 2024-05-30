@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PODMAN_PATH = '/usr/local/bin'
-        PATH = "${PODMAN_PATH}:${env.PATH}"
+        PATH = "/usr/local/bin:${env.PATH}"
         DOCKER_IMAGE = "igwegbu/solargeometry:latest"
     }
 
@@ -33,9 +32,17 @@ pipeline {
             }
         }
 
+        stage('Check Directory Contents') {
+            steps {
+                sh 'ls -l'
+                sh 'ls -l solargeometry'
+            }
+        }
+
         stage('Build Podman Image') {
             steps {
-                sh 'podman build -t ${DOCKER_IMAGE} .'
+                // Assuming Dockerfile is in the solargeometry directory
+                sh 'podman build -t ${DOCKER_IMAGE} -f solargeometry/Dockerfile solargeometry'
             }
         }
 
@@ -43,7 +50,6 @@ pipeline {
             steps {
                 sh 'echo $PATH'
                 sh 'which podman'
-                sh 'podman --version'
             }
         }
     }
