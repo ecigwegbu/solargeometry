@@ -24,6 +24,9 @@ pipeline {
             steps {
                 sh 'echo $PATH'
                 sh 'which docker'
+		sh 'pwd'
+		sh 'whoami'
+		
             }
         }
 
