@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-	DOCKER_PATH = '/Applications/Docker.app/Contents/Resources/bin'
+        DOCKER_PATH = '/Applications/Docker.app/Contents/Resources/bin'
         PATH = "${DOCKER_PATH}:${env.PATH}"
         DOCKER_IMAGE = "igwegbu/solargeometry:latest"
         DOCKER_CREDENTIALS_ID = "DOCKER_CREDENTIALS_ID"
@@ -25,25 +25,25 @@ pipeline {
             }
         }
 
-	stage('Debug Docker Path - Pre-Build') {
-    		steps {
-        		sh 'echo $PATH'
-        		sh 'which docker'
-    		}
-	}
-
-        stage('Build Docker Image') {
-	    steps {
-        	sh '/usr/local/bin/docker build -t igwegbu/solargeometry:latest .'
-    	    }
+        stage('Debug Docker Path - Pre-Build') {
+            steps {
+                sh 'echo $PATH'
+                sh 'which docker'
+            }
         }
 
-	stage('Debug Docker Path - Post-Build') {
-    		steps {
-        		sh 'echo $PATH'
-        		sh 'which docker'
-    		}
-	}
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t ${DOCKER_IMAGE} .'
+            }
+        }
+
+        stage('Debug Docker Path - Post-Build') {
+            steps {
+                sh 'echo $PATH'
+                sh 'which docker'
+            }
+        }
 
         stage('Test Docker Image') {
             steps {
