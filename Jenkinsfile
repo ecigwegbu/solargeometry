@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_PATH = '/usr/local/bin/docker'
+	DOCKER_PATH = '/Applications/Docker.app/Contents/Resources/bin'
         PATH = "${DOCKER_PATH}:${env.PATH}"
         DOCKER_IMAGE = "igwegbu/solargeometry:latest"
         DOCKER_CREDENTIALS_ID = "DOCKER_CREDENTIALS_ID"
@@ -33,12 +33,11 @@ pipeline {
 	}
 
         stage('Build Docker Image') {
-            steps {
-                script {
-                    def customImage = docker.build("${env.DOCKER_IMAGE}")
-                }
-            }
+	    steps {
+        	sh '/usr/local/bin/docker build -t igwegbu/solargeometry:latest .'
+    	    }
         }
+
 	stage('Debug Docker Path - Post-Build') {
     		steps {
         		sh 'echo $PATH'
