@@ -13,6 +13,7 @@ pipeline {
                 cleanWs()
             }
         }
+   }
 
     stages {
         stage('Clone Repository') {
