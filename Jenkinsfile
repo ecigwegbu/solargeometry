@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        DOCKER_PATH = '/usr/local/bin/docker'
+        PATH = "${DOCKER_PATH}:${env.PATH}"
         DOCKER_IMAGE = "igwegbu/solargeometry:latest"
         DOCKER_CREDENTIALS_ID = "DOCKER_CREDENTIALS_ID"
         GITHUB_CREDENTIALS_ID = "GITHUB_CREDENTIALS_ID"
