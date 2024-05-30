@@ -45,7 +45,71 @@ pipeline {
             }
         }
 
+        stage('Test Docker Image') {
+            steps {
+                script {
+                    docker.image(env.DOCKER_IMAGE).inside {
+                        sh '''
+                            if ls tests/*.py 1> /dev/null 2>&1; then
+                                pytest
+                            else
+                                echo "No tests found, skipping pytest."
+                            fi
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            when {
+                expression {
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                }
+            }
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', env.DOCKER_CREDENTIALS_ID) {
+                        docker.image(env.DOCKER_IMAGE).push('latest')
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to EC2') {
+            when {
+                expression {
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                }
+            }
+            steps {
+                sshagent([env.EC2_SSH_CREDENTIALS_ID]) {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << EOF
+                    sudo docker pull ${DOCKER_IMAGE}
+                    sudo docker rm -f \$(sudo docker ps -aq)
+                    sudo docker run -d -p 5005:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} ${DOCKER_IMAGE}
+                    EOF
+                    """
+                }
+            }
+        }
     }
 
+    post {
+        always {
+            cleanWs()
+        }
+        success {
+            mail to: 'igwegbu@gmail.com',
+                 subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "Build succeeded! Please check the details at ${env.BUILD_URL}"
+        }
+        failure {
+            mail to: 'igwegbu@gmail.com',
+                 subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "Please check the build log at ${env.BUILD_URL}"
+        }
+    }
 }
 
