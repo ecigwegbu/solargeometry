@@ -25,6 +25,13 @@ pipeline {
             }
         }
 
+	stage('Debug Docker Path - Pre-Build') {
+    		steps {
+        		sh 'echo $PATH'
+        		sh 'which docker'
+    		}
+	}
+
         stage('Build Docker Image') {
             steps {
                 script {
@@ -32,6 +39,12 @@ pipeline {
                 }
             }
         }
+	stage('Debug Docker Path - Post-Build') {
+    		steps {
+        		sh 'echo $PATH'
+        		sh 'which docker'
+    		}
+	}
 
         stage('Test Docker Image') {
             steps {
