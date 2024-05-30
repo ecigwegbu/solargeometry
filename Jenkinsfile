@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-        DOCKER_IMAGE = "docker://igwegbu/solargeometry:latest"
+        DOCKER_IMAGE = "igwegbu/solargeometry:latest"
         DOCKER_CREDENTIALS_ID = "DOCKER_CREDENTIALS_ID"
         GITHUB_CREDENTIALS_ID = "GITHUB_CREDENTIALS_ID"
         EC2_SSH_CREDENTIALS_ID = "EC2_SSH_CREDENTIALS_ID"
