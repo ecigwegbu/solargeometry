@@ -9,3 +9,4 @@ tzapi
 Dockerfile.*
 *.gpt
 *.new
+*.old
