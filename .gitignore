@@ -11,3 +11,4 @@ Dockerfile.*
 *.new
 *.old
 *.test
+*.ref*

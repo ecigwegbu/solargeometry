@@ -10,7 +10,6 @@ pipeline {
         SOLARGEOMETRY_ENV_FILE = "SOLARGEOMETRY_ENV_FILE"
         HAProxy_CONFIG_PATH = "/etc/haproxy/haproxy.cfg"
         SSL_CERT_PATH = "/etc/ssl/private/igwegbu.letsencrypt.pem"
-
     }
 
     stages {
@@ -72,7 +71,9 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'DOCKER_CREDENTIALS_ID', variable: 'DOCKER_PAT')]) {
                         sh 'podman login --username igwegbu --password ${DOCKER_PAT} docker.io'
-                        sh 'podman push ${DOCKER_IMAGE} docker://igwegbu/solargeometry:latest'
+                        retry(3) {
+                            sh 'podman push ${DOCKER_IMAGE} docker://igwegbu/solargeometry:latest --log-level debug'
+                        }
                     }
                 }
             }
