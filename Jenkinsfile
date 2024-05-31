@@ -81,14 +81,16 @@ pipeline {
             steps {
                 sshagent([env.EC2_SSH_CREDENTIALS_ID]) {
                     sh """
-                    ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << EOF
+                    ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << 'EOF'
+                    set -e  # Exit on any error
                     echo "Before Pull"
                     podman pull docker.io/${DOCKER_IMAGE}
                     echo "After Pull"
-                    # podman ps -aq | xargs -r podman rm -f
+                    podman ps -aq | xargs -r podman rm -f  # Ensure it only runs if there are containers
                     echo "After xargs"
                     podman run -d -p 5005:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} docker.io/${DOCKER_IMAGE}
                     echo "After podman run"
+                    exit 0  # Explicitly exit to avoid any EOF errors
                     EOF
                     """
                 }
