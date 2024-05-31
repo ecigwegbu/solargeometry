@@ -7,7 +7,7 @@ pipeline {
         DOCKER_CREDENTIALS_ID = "DOCKER_CREDENTIALS_ID"
         EC2_SSH_CREDENTIALS_ID = "EC2_SSH_CREDENTIALS_ID"
         EC2_HOST = "18.214.151.55"
-        SOLARGEOMETRY_ENV_FILE = "/home/ubuntu/SOLARGEOMETRY_ENV_FILE"  // Update this with the correct path
+        SOLARGEOMETRY_ENV_FILE = "/home/ubuntu/SOLARGEOMETRY_ENV_FILE"
         HAProxy_CONFIG_PATH = "/etc/haproxy/haproxy.cfg"
         SSL_CERT_PATH = "/etc/ssl/private/igwegbu.letsencrypt.pem"
     }
@@ -58,7 +58,7 @@ pipeline {
                     podman pull docker.io/${DOCKER_IMAGE}
                     podman ps -aq | xargs -r podman rm -f  # Ensure it only runs if there are containers
                     podman run -d -p 5005:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} docker.io/${DOCKER_IMAGE}
-                    exit 0  # Explicitly exit to avoid any EOF errors
+                    # exit 0  Explicitly exit to avoid any EOF errors
                     EOF
                     """
                 }
