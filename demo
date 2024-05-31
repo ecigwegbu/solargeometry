@@ -6,18 +6,18 @@ pipeline {
         stage('Greet-1'){
             steps {
                 sh '''
-                    echo 'Hello, World!'
+                    echo 'Hello, World!'  #  Comment
                 '''
                 ls -al
-            }  # step
-        }  # stage1
+            }  // step - another comment
+        }  // stage1
 
         stage('Greet-2'){
             steps {
                 sh '''
                     echo 'Hello, my people!'
                 '''
-            }  # step
-        }  # stage2
+            }  // step
+        }  // stage2
     }    
 }
