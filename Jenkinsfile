@@ -25,36 +25,9 @@ pipeline {
             }
         }
 
-        stage('Debug Podman Path - Pre-Build') {
-            steps {
-                sh 'echo $PATH'
-                sh 'which podman'
-                sh 'podman --version'
-                sh 'pwd'
-                sh 'whoami'
-                sh 'id'
-                sh 'groups'
-                sh 'podman ps'
-            }
-        }
-
-        stage('Check Directory Contents') {
-            steps {
-                sh 'ls -l'
-                sh 'ls -l solargeometry'
-            }
-        }
-
         stage('Build Podman Image') {
             steps {
                 sh 'podman build -t ${DOCKER_IMAGE} -f solargeometry/Dockerfile solargeometry'
-            }
-        }
-
-        stage('Debug Podman Path - Post-Build') {
-            steps {
-                sh 'echo $PATH'
-                sh 'which podman'
             }
         }
 
@@ -71,9 +44,7 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'DOCKER_CREDENTIALS_ID', variable: 'DOCKER_PAT')]) {
                         sh 'podman login --username igwegbu --password ${DOCKER_PAT} docker.io'
-                        retry(5) {
-                            sh 'podman push ${DOCKER_IMAGE} docker://igwegbu/solargeometry:latest --log-level debug'
-                        }
+                        sh 'podman push ${DOCKER_IMAGE} docker://igwegbu/solargeometry:latest --log-level debug'
                     }
                 }
             }
@@ -84,13 +55,9 @@ pipeline {
                 sshagent([env.EC2_SSH_CREDENTIALS_ID]) {
                     sh """
                     ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << 'EOF'
-                    echo "Before Pull"
                     podman pull docker.io/${DOCKER_IMAGE}
-                    echo "After Pull"
                     podman ps -aq | xargs -r podman rm -f  # Ensure it only runs if there are containers
-                    echo "After xargs"
                     podman run -d -p 5005:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} docker.io/${DOCKER_IMAGE}
-                    echo "After podman run"
                     exit 0  # Explicitly exit to avoid any EOF errors
                     EOF
                     """
