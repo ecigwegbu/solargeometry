@@ -7,7 +7,7 @@ pipeline {
         DOCKER_CREDENTIALS_ID = "DOCKER_CREDENTIALS_ID"
         EC2_SSH_CREDENTIALS_ID = "EC2_SSH_CREDENTIALS_ID"
         EC2_HOST = "18.214.151.55"
-        SOLARGEOMETRY_ENV_FILE = "SOLARGEOMETRY_ENV_FILE"
+        SOLARGEOMETRY_ENV_FILE = "/home/ubuntu/SOLARGEOMETRY_ENV_FILE"  // Update this with the correct path
         HAProxy_CONFIG_PATH = "/etc/haproxy/haproxy.cfg"
         SSL_CERT_PATH = "/etc/ssl/private/igwegbu.letsencrypt.pem"
     }
@@ -84,9 +84,13 @@ pipeline {
                 sshagent([env.EC2_SSH_CREDENTIALS_ID]) {
                     sh """
                     ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << 'EOF'
+                    echo "Before Pull"
                     podman pull docker.io/${DOCKER_IMAGE}
-                    podman ps -aq | xargs -r podman rm -f  # Ensure it only runs if there are containers
-                    podman run -d -p 5005:5004 --env-file=/home/ubuntu/SOLARGEOMETRY_ENV_FILE docker.io/${DOCKER_IMAGE}
+                    echo "After Pull"
+                    podman ps -aq | xargs -r podman rm -f
+                    echo "After xargs"
+                    podman run -d -p 5005:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} docker.io/${DOCKER_IMAGE}
+                    echo "After podman run"
                     EOF
                     """
                 }
