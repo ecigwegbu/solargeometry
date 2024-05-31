@@ -4,16 +4,20 @@ pipeline {
     stages {
 
         stage('Greeti-1'){
-            sh '''
-                echo 'Hello, World!'
-            '''
+            steps {
+                sh '''
+                    echo 'Hello, World!'
+                '''
+            }  // step
         }  // stage1
 
 
         stage('Greeti-2'){
-            sh '''
-                echo 'Hello, my people!'
-            '''
+            steps {
+                sh '''
+                    echo 'Hello, my people!'
+                '''
+            }  // step
         }  // stage2
 
     }    
