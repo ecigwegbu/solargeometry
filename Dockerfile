@@ -7,7 +7,6 @@ COPY static/ /app/static/
 COPY templates/ /app/templates/ 
 COPY solargeometry.py /app 
 COPY requirements.txt /app 
-# COPY .env /app  # use --env-file on the command line instead 
 
 # RUN dnf install -y python3-pip
 RUN pip install -r requirements.txt  # flask requests gunicorn python-dotenv

@@ -1,3 +1,7 @@
+# This Jenkins pipeline builds, tests, stores and deploys the Solargeometry app
+# Visit https://www.igwegbu.tech for the live site 
+# App repository is https://github.com/ecigwegbu/solargeometry
+
 pipeline {
     agent any
 
