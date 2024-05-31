@@ -80,9 +80,8 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 sshagent([env.EC2_SSH_CREDENTIALS_ID]) {
-                    sh '''
+                    sh """
                     ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << 'EOF'
-                    set -e  # Exit on any error
                     echo "Before Pull"
                     podman pull docker.io/${DOCKER_IMAGE}
                     echo "After Pull"
@@ -92,7 +91,7 @@ pipeline {
                     echo "After podman run"
                     exit 0  # Explicitly exit to avoid any EOF errors
                     EOF
-                    '''
+                    """
                 }
             }
         }
