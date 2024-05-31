@@ -71,9 +71,7 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'DOCKER_CREDENTIALS_ID', variable: 'DOCKER_PAT')]) {
                         sh 'podman login --username igwegbu --password ${DOCKER_PAT} docker.io'
-                        retry(5) {
-                            sh 'podman push ${DOCKER_IMAGE} docker://igwegbu/solargeometry:latest --log-level debug'
-                        }
+                        sh 'podman push ${DOCKER_IMAGE} docker://igwegbu/solargeometry:latest --log-level debug'
                     }
                 }
             }
@@ -83,11 +81,11 @@ pipeline {
             steps {
                 sshagent([env.EC2_SSH_CREDENTIALS_ID]) {
                     sh """
-                    ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << 'EOF'
+                    ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << EOF
                     echo "Before Pull"
                     podman pull docker.io/${DOCKER_IMAGE}
                     echo "After Pull"
-                    podman ps -aq | xargs -r podman rm -f
+                    # podman ps -aq | xargs -r podman rm -f
                     echo "After xargs"
                     podman run -d -p 5005:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} docker.io/${DOCKER_IMAGE}
                     echo "After podman run"
