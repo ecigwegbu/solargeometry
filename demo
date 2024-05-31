@@ -20,4 +20,18 @@ pipeline {
             }  // step
         }  // stage2
     }    
+
+    post {
+        always{
+            echo 'This runs always!'    
+        }   
+
+        success{
+            echo 'Pipeline execution succeeded!'    
+        }   
+
+        failure{
+            echo 'Pipeline execution failed!'    
+        }   
+    }
 }
