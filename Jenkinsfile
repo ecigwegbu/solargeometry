@@ -61,7 +61,7 @@ pipeline {
         stage('Test Podman Image') {
             steps {
                 script {
-                    sh 'podman run --rm ${DOCKER_IMAGE} echo "Image test successful"'
+                    sh 'podman run --net=host --rm ${DOCKER_IMAGE} echo "Image test successful"'
                 }
             }
         }
