@@ -85,7 +85,7 @@ pipeline {
                     sh """
                     ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << EOF
                     podman pull docker.io/${DOCKER_IMAGE}
-                    podman run -d -p 5005:5004 --env-file=${HOME}/${SOLARGEOMETRY_ENV_FILE} docker.io/${DOCKER_IMAGE}
+                    podman run -d -p 5005:5004 --env-file=/home/ubuntu/SOLARGEOMETRY_ENV_FILE docker.io/${DOCKER_IMAGE}
                     EOF
                     """
                 }
