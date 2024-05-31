@@ -71,7 +71,9 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'DOCKER_CREDENTIALS_ID', variable: 'DOCKER_PAT')]) {
                         sh 'podman login --username igwegbu --password ${DOCKER_PAT} docker.io'
-                        sh 'podman push ${DOCKER_IMAGE} docker://igwegbu/solargeometry:latest --log-level debug'
+                        retry(5) {
+                            sh 'podman push ${DOCKER_IMAGE} docker://igwegbu/solargeometry:latest --log-level debug'
+                        }
                     }
                 }
             }
@@ -102,14 +104,26 @@ pipeline {
             cleanWs()
         }
         success {
-            mail to: 'igwegbu@gmail.com',
-                 subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "Build succeeded! Please check the details at ${env.BUILD_URL}"
+            script {
+                try {
+                    mail to: 'igwegbu@gmail.com',
+                         subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                         body: "Build succeeded! Please check the details at ${env.BUILD_URL}"
+                } catch (Exception e) {
+                    echo "Failed to send success email: ${e.getMessage()}"
+                }
+            }
         }
         failure {
-            mail to: 'igwegbu@gmail.com',
-                 subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "Please check the build log at ${env.BUILD_URL}"
+            script {
+                try {
+                    mail to: 'igwegbu@gmail.com',
+                         subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                         body: "Please check the build log at ${env.BUILD_URL}"
+                } catch (Exception e) {
+                    echo "Failed to send failure email: ${e.getMessage()}"
+                }
+            }
         }
     }
 }
