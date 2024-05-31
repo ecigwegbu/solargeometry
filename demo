@@ -3,23 +3,21 @@ pipeline {
     
     stages {
 
-        stage('Greeti-1'){
+        stage('Greet-1'){
             steps {
                 sh '''
                     echo 'Hello, World!'
                 '''
-            }  // step
-        }  // stage1
+                ls -al
+            }  # step
+        }  # stage1
 
-
-        stage('Greeti-2'){
+        stage('Greet-2'){
             steps {
                 sh '''
                     echo 'Hello, my people!'
                 '''
-            }  // step
-        }  // stage2
-
+            }  # step
+        }  # stage2
     }    
-
 }
