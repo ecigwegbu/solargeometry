@@ -72,7 +72,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'DOCKER_CREDENTIALS_ID', variable: 'DOCKER_PAT')]) {
                         sh 'podman login --username igwegbu --password ${DOCKER_PAT} docker.io'
                         retry(3) {
-                            sh 'podman push ${DOCKER_IMAGE} docker://igwegbu/solargeometry:latest --log-level debug'
+                            sh 'podman push ${DOCKER_IMAGE} docker://igwegbu/solargeometry:latest --log-level debug --timeout 300'
                         }
                     }
                 }
