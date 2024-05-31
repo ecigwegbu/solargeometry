@@ -12,3 +12,4 @@ Dockerfile.*
 *.old
 *.test
 *.ref*
+*.workingbase*

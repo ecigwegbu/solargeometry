@@ -106,22 +106,26 @@ pipeline {
         success {
             script {
                 try {
-                    mail to: 'igwegbu@gmail.com',
-                         subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                         body: "Build succeeded! Please check the details at ${env.BUILD_URL}"
+                    emailext(
+                        subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: "Build succeeded! Please check the details at ${env.BUILD_URL}",
+                        to: "igwegbu@gmail.com"
+                    )
                 } catch (Exception e) {
-                    echo "Failed to send success email: ${e.getMessage()}"
+                    echo "Failed to send success email: ${e.message}"
                 }
             }
         }
         failure {
             script {
                 try {
-                    mail to: 'igwegbu@gmail.com',
-                         subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                         body: "Please check the build log at ${env.BUILD_URL}"
+                    emailext(
+                        subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: "Please check the build log at ${env.BUILD_URL}",
+                        to: "igwegbu@gmail.com"
+                    )
                 } catch (Exception e) {
-                    echo "Failed to send failure email: ${e.getMessage()}"
+                    echo "Failed to send failure email: ${e.message}"
                 }
             }
         }
