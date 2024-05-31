@@ -81,7 +81,7 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['EC2_SSH_CREDENTIALS_ID']) {
+                sshagent([env.EC2_SSH_CREDENTIALS_ID]) {
                     sh """
                     ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << EOF
                     podman pull docker.io/${DOCKER_IMAGE}
