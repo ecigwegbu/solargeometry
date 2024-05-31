@@ -1,5 +1,8 @@
 pipeline {
-    agent any
+
+    agent {
+        label "jenkins-agent"  // RHEL9 VM
+    }
 
     environment {
         PATH = "/usr/local/bin:${env.PATH}"
