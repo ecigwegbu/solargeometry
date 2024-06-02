@@ -60,7 +60,7 @@ pipeline {
                     ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} << EOF
                     podman pull docker.io/${DOCKER_IMAGE}
                     podman ps -aq | xargs -r podman rm -f  # Ensure it only runs if there are containers
-                    podman run -d -p 5005:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} docker.io/${DOCKER_IMAGE}
+                    podman run -d -p 5004:5004 --env-file=${SOLARGEOMETRY_ENV_FILE} docker.io/${DOCKER_IMAGE}
                     exit 0  # Explicitly exit to avoid any EOF errors
                     EOF
                     """
