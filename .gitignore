@@ -13,3 +13,4 @@ Dockerfile.*
 *.test
 *.ref*
 *.workingbase*
+*githuboriginal
