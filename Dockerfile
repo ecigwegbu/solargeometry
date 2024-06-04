@@ -11,4 +11,6 @@ COPY requirements.txt /app
 # RUN dnf install -y python3-pip
 RUN pip install -r requirements.txt  # flask requests gunicorn python-dotenv
 
+EXPOSE 5004
+
 CMD ["gunicorn", "--workers", "2", "--bind", "0.0.0.0:5004", "--log-file", "/tmp/solargeometry-error.log", "--access-logfile", "/tmp/solargeometry-access.log", "solargeometry:app"]
