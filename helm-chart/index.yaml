@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  solargeometry:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-07-12T15:54:38.101085386-05:00"
+    description: A Helm chart for Solargeometry Web App
+    digest: 1982aa4a7d445277848fd4ad3ff87c782c2a17a8f62ac0dd5e65d717634e5618
+    name: solargeometry
+    type: application
+    urls:
+    - https://github.com/ecigwegbu/solargeometry/raw/main/helm-chart/solargeometry-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-07-12T15:54:38.100552068-05:00"
