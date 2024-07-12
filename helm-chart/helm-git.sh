@@ -27,14 +27,20 @@ helm list
 # │   │   └── service.yaml
 # │   └── values.yaml
 # └── solargeometry-0.1.0.tgz
+# Git add, commit and push the repo as normal 
+git add . && git commit -m "helm chart files added" && git push
 
 # Now add the helm-git plugin to Helm:
 helm plugin install https://github.com/aslafy-z/helm-git.git
 
 # Now within the 'helm-chart' folder (name it as required) that contains the 
-# solargeometry helm chart run this command, then commit and push it to GitHub:
+# solargeometry helm chart run these commands:
 
+helm package solargeometry  # creates a .tgz archive file in that directory
 helm repo index . --url https://github.com/ecigwegbu/solargeometry/raw/main/helm-chart  # creates index.yaml
+
+# Git add, commit and push the repo as normal 
+git add . && git commit -m "helm repo created" && git push
 
 # Now the helm repo exists in GitHub. You can add the GitHub helm repo to your local machine:
 helm repo add solargeometry https://github.com/ecigwegbu/solargeometry/raw/main/helm-chart
