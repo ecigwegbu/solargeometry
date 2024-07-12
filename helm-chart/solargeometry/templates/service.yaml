@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: solargeometry
+  name: solargeometry
+spec:
+  ports:
+  - name: 5004-5004
+    port: 5004
+    protocol: TCP
+    targetPort: 5004
+  selector:
+    app: solargeometry
+  type: NodePort
+status:
+  loadBalancer: {}

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: solargeometry
+  name: solargeometry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: solargeometry
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: solargeometry
+    spec:
+      containers:
+      - image: docker.io/igwegbu/solargeometry:latest
+        name: solargeometry
+        ports:
+        - containerPort: 5004
+        envFrom:
+        - secretRef:
+            name: solargeometry
+        resources: {}
+status: {}
